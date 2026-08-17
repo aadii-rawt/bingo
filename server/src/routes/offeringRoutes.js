@@ -7,6 +7,7 @@ const {
   getOfferingById,
   updateOffering,
   deleteOffering,
+  getOfferingsByService,
 } = require("../controller/offeringController");
 
 const {
@@ -26,7 +27,10 @@ router.get(
 );
 
 router.get("/:id", getOfferingById);
-
+router.get(
+  "/service/:serviceId",
+  getOfferingsByService
+);
 router.post(
   "/",
   authenticate,

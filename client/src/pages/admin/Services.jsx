@@ -189,9 +189,7 @@ const Services = () => {
                     </p>
 
                     <p className="mt-1 text-sm font-medium text-black dark:text-white">
-                      {service.vendor?.name ||
-                        service.vendor?.user?.name ||
-                        service.vendor?.email ||
+                      {service.vendor?.businessName ||
                         "Unknown vendor"}
                     </p>
                   </div>

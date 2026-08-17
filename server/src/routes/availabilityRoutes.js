@@ -19,73 +19,73 @@ const {
   requirePermission,
 } = require("../middleware/authMiddleware");
 
-const router = express.Router();
+  const router = express.Router();
 
-router.get("/slots", generateSlots);
-router.get(
-  "/rules/my",
-  authenticate,
-  requirePermission("availability.read"),
-  getMyAvailabilityRules
-);
+  router.get("/slots", generateSlots);
+  router.get(
+    "/rules/my",
+    authenticate,
+    requirePermission("availability.read"),
+    getMyAvailabilityRules
+  );
 
-router.post(
-  "/rules",
-  authenticate,
-  requirePermission("availability.create"),
-  createAvailabilityRule
-);
+  router.post(
+    "/rules",
+    authenticate,
+    requirePermission("availability.create"),
+    createAvailabilityRule
+  );
 
-router.get(
-  "/rules/service/:serviceId",
-  getServiceAvailabilityRules
-);
+  router.get(
+    "/rules/service/:serviceId",
+    getServiceAvailabilityRules
+  );
 
-router.patch(
-  "/rules/:id",
-  authenticate,
-  requirePermission("availability.update"),
-  updateAvailabilityRule
-);
+  router.patch(
+    "/rules/:id",
+    authenticate,
+    requirePermission("availability.update"),
+    updateAvailabilityRule
+  );
 
-router.delete(
-  "/rules/:id",
-  authenticate,
-  requirePermission("availability.delete"),
-  deleteAvailabilityRule
-);
+  router.delete(
+    "/rules/:id",
+    authenticate,
+    requirePermission("availability.delete"),
+    deleteAvailabilityRule
+  );
 
-router.get(
-  "/exceptions/my",
-  authenticate,
-  requirePermission("availability.read"),
-  getMyAvailabilityExceptions
-);
+  router.get(
+    "/exceptions/my",
+    authenticate,
+    requirePermission("availability.read"),
+    getMyAvailabilityExceptions
+  );
 
-router.post(
-  "/exceptions",
-  authenticate,
-  requirePermission("availability.create"),
-  createAvailabilityException
-);
+  router.post(
+    "/exceptions",
+    authenticate,
+    requirePermission("availability.create"),
+    createAvailabilityException
+  );
 
-router.get(
-  "/exceptions/service/:serviceId",
-  getServiceAvailabilityExceptions
-);
+  router.get(
+    "/exceptions/service/:serviceId",
+    getServiceAvailabilityExceptions
+  );
 
-router.patch(
-  "/exceptions/:id",
-  authenticate,
-  requirePermission("availability.update"),
-  updateAvailabilityException
-);
+  router.patch(
+    "/exceptions/:id",
+    authenticate,
+    requirePermission("availability.update"),
+    updateAvailabilityException
+  );
 
-router.delete(
-  "/exceptions/:id",
-  authenticate,
-  requirePermission("availability.delete"),
-  deleteAvailabilityException
-);
+  router.delete(
+    "/exceptions/:id",
+    authenticate,
+    requirePermission("availability.delete"),
+    deleteAvailabilityException
+  );
 
-module.exports = router;
+  module.exports = router;

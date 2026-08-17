@@ -31,6 +31,10 @@ import Vendors from "./pages/admin/Vendors";
 import ApprovedVendors from "./pages/admin/ApprovedVendors";
 import AdminServices from "./pages/admin/Services";
 import Categories from "./pages/admin/Categories";
+import Services from "./pages/vendor/Services";
+import Offerings from "./pages/vendor/Offerings";
+import Availability from "./pages/vendor/Availability";
+import MyBookings from "./pages/user/MyBookings";
 // import AdminVendors from "./pages/admin/Vendors";
 // import AdminServices from "./pages/admin/Services";
 // import AdminCategories from "./pages/admin/Categories";
@@ -74,10 +78,11 @@ function App() {
             element={<UserDashboard />}
           />
 
-          {/* <Route
+          <Route
             path="bookings"
-            element={<UserBookings />}
+            element={<MyBookings />}
           />
+          {/* 
 
           <Route
             path="payments"
@@ -100,20 +105,20 @@ function App() {
           />
 
 
-          {/* <Route
+          <Route
             path="services"
-            element={<VendorServices />}
+            element={<Services />}
           />
-
           <Route
             path="offerings"
-            element={<VendorOfferings />}
+            element={<Offerings />}
           />
-
           <Route
             path="availability"
-            element={<VendorAvailability />}
+            element={<Availability />}
           />
+          {/*
+
 
           <Route
             path="bookings"

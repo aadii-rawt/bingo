@@ -253,6 +253,45 @@ const getOfferingById = async (req, res) => {
   }
 };
 
+
+
+const getOfferingsByService = async (
+  req,
+  res
+) => {
+  try {
+    const { serviceId } = req.params;
+
+    const offerings = await Offering.find({
+      service: serviceId,
+      isActive: true,
+    }).populate({
+      path: "service",
+      populate: [
+        {
+          path: "vendor",
+        },
+        {
+          path: "category",
+        },
+      ],
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: offerings,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};
+
+
 const updateOffering = async (req, res) => {
   try {
     const {
@@ -414,5 +453,5 @@ module.exports = {
   getOfferingById,
   updateOffering,
   deleteOffering,
-  
+  getOfferingsByService
 };

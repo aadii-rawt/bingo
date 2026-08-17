@@ -35,6 +35,8 @@ const Login = () => {
 
             const user = data?.data?.user;
             const accessToken = data?.data?.accessToken;
+            console.log(user);
+            
 
             localStorage.setItem(
                 "accessToken",
@@ -45,31 +47,33 @@ const Login = () => {
                 throw new Error("Invalid login response");
             }
 
-            // if (user.role === "VENDOR") {
-            //     if (
-            //         user.status === "PENDING" ||
-            //         user.status === "REJECTED"
-            //     ) {
-            //         navigate("/vendor/pending", {
-            //             state: {
-            //                 status: user.status,
-            //                 rejectionReason: user.rejectionReason || "",
-            //             },
-            //         });
+            if (user.role === "VENDOR") {
+                console.log("this is vendor");
+                
+                if (
+                    user.status === "PENDING" ||
+                    user.status === "REJECTED"
+                ) {
+                    navigate("/vendor/pending", {
+                        state: {
+                            status: user.status,
+                            rejectionReason: user.rejectionReason || "",
+                        },
+                    });
 
-            //         return;
-            //     }
+                    return;
+                }
 
-            //     if (user.status === "APPROVED") {
-            //         navigate("/vendor/dashboard");
-            //         return;
-            //     }
-            // }
+                if (user.status === "ACTIVE") {
+                    navigate("/vendor/dashboard");
+                    return;
+                }
+            }
 
-            // if (user.role === "ADMIN") {
-            //     navigate("/admin/dashboard");
-            //     return;
-            // }
+            if (user.role === "ADMIN") {
+                navigate("/admin/dashboard");
+                return;
+            }
 
             navigate("/user/dashboard");
         } catch (error) {
