@@ -190,7 +190,6 @@ const registerVendor = async (req, res) => {
       },
       address,
       timezone: timezone || "Asia/Kolkata",
-      documents: documents || [],
       approvalStatus: "PENDING",
     });
 
@@ -300,8 +299,8 @@ const login = async (req, res) => {
           permissions: user.role.isSuperAdmin
             ? ["*"]
             : user.role.permissions.map(
-                (permission) => permission.slug
-              ),
+              (permission) => permission.slug
+            ),
         },
         accessToken: tokens.accessToken,
       },
@@ -448,8 +447,8 @@ const getMe = async (req, res) => {
         permissions: user.role.isSuperAdmin
           ? ["*"]
           : user.role.permissions.map(
-              (permission) => permission.slug
-            ),
+            (permission) => permission.slug
+          ),
       },
     });
   } catch (error) {

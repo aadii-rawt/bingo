@@ -28,7 +28,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use("/api/services", serviceRoutes);
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({
@@ -40,9 +39,9 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/vendors", vendorRoutes);
 app.use("/api/categories", categoryRoutes);
-
 app.use("/api/offerings", offeringRoutes);
 app.use("/api/availability", availabilityRoutes);
+app.use("/api/services", serviceRoutes);
 
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);

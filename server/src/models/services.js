@@ -4,7 +4,7 @@ const serviceSchema = new mongoose.Schema(
   {
     vendor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Vendors",
+      ref: "Vendor",
       required: true,
       index: true,
     },

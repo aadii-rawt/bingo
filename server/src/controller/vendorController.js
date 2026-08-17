@@ -52,7 +52,7 @@ const getPendingVendors = async (req, res) => {
 
 const getAllVendors = async (req, res) => {
   try {
-    const vendors = await Vendor.find()
+    const vendors = await Vendor.find({ approvalStatus: "APPROVED" })
       .populate("user", "name email status")
       .populate("approvedBy", "name email")
       .sort({ createdAt: -1 });

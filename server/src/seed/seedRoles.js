@@ -25,6 +25,10 @@ const seed = async () => {
             name: "Reject vendors",
         },
         {
+            slug: "vendor.read",
+            name: "Read vendors",
+        },
+        {
             slug: "service.create",
             name: "Create services",
         },
@@ -176,6 +180,7 @@ const seed = async () => {
 
     const vendorPermissions = [
         permissionMap.get("service.create"),
+        permissionMap.get("vendor.read"),
         permissionMap.get("service.read"),
         permissionMap.get("service.update"),
         permissionMap.get("service.delete"),
