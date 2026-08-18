@@ -75,7 +75,7 @@ const createPayment = async (req, res) => {
       amount: bookingData.price,
       currency: bookingData.currency,
       mode: "PAY_NOW",
-      status: "INITIATED",
+      status: "SUCCESS",
       idempotencyKey,
     });
 

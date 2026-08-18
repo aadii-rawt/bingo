@@ -25,16 +25,11 @@ const UserLayout = () => {
       path: "/user/bookings",
       icon: "bookings",
     },
-    {
-      label: "Payments",
-      path: "/user/payments",
-      icon: "payments",
-    },
-    {
-      label: "Profile",
-      path: "/user/profile",
-      icon: "profile",
-    },
+    // {
+    //   label: "Payments",
+    //   path: "/user/payments",
+    //   icon: "payments",
+    // },
   ];
 
   const handleLogout = () => {

@@ -26,7 +26,7 @@ const setRefreshTokenCookie = (res, refreshToken) => {
     httpOnly: false,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 60 * 60 * 1000,
   });
 };
 
@@ -271,12 +271,12 @@ const login = async (req, res) => {
       });
     }
 
-    if (user.status === "REJECTED") {
-      return res.status(403).json({
-        success: false,
-        message: "Your account has been rejected",
-      });
-    }
+    // if (user.status === "REJECTED") {
+    //   return res.status(403).json({
+    //     success: false,
+    //     message: "Your account has been rejected",
+    //   });
+    // }
 
     user.lastLoginAt = new Date();
 
@@ -317,7 +317,8 @@ const login = async (req, res) => {
 
 const refreshAccessToken = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+    const refreshToken =
+      req.cookies.refreshToken;
 
     if (!refreshToken) {
       return res.status(401).json({
@@ -326,36 +327,33 @@ const refreshAccessToken = async (req, res) => {
       });
     }
 
-    const payload = verifyRefreshToken(refreshToken);
+    let decoded;
 
-    const tokenHash = hashToken(refreshToken);
-
-    const storedToken = await RefreshToken.findOne({
-      tokenHash,
-      user: payload.userId,
-      revokedAt: null,
-      expiresAt: {
-        $gt: new Date(),
-      },
-    });
-
-    if (!storedToken) {
+    try {
+      decoded = jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET
+      );
+    } catch (error) {
       return res.status(401).json({
         success: false,
-        message: "Invalid refresh token",
+        message: "Refresh token expired",
       });
     }
 
-    storedToken.revokedAt = new Date();
-
-    await storedToken.save();
-
-    const user = await User.findById(payload.userId);
+    const user = await User.findById(
+      decoded.userId
+    ).populate({
+      path: "role",
+      populate: {
+        path: "permissions",
+      },
+    });
 
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "User no longer exists",
+        message: "User not found",
       });
     }
 
@@ -369,20 +367,44 @@ const refreshAccessToken = async (req, res) => {
       });
     }
 
-    const tokens = await createTokens(user);
-
-    setRefreshTokenCookie(res, tokens.refreshToken);
+    const accessToken = jwt.sign(
+      {
+        userId: user._id,
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn:
+          process.env.ACCESS_TOKEN_EXPIRES_IN ||
+          "30m",
+      }
+    );
 
     return res.status(200).json({
       success: true,
       data: {
-        accessToken: tokens.accessToken,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          status: user.status,
+          role: user.role.slug,
+          permissions:
+            user.role.isSuperAdmin
+              ? ["*"]
+              : user.role.permissions.map(
+                (permission) =>
+                  permission.slug
+              ),
+        },
+        accessToken,
       },
     });
   } catch (error) {
-    return res.status(401).json({
+    console.error(error);
+
+    return res.status(500).json({
       success: false,
-      message: "Invalid or expired refresh token",
+      message: "Something went wrong",
     });
   }
 };

@@ -35,6 +35,11 @@ import Services from "./pages/vendor/Services";
 import Offerings from "./pages/vendor/Offerings";
 import Availability from "./pages/vendor/Availability";
 import MyBookings from "./pages/user/MyBookings";
+import MyPayments from "./pages/user/MyPayments";
+import VendorBookings from "./pages/vendor/VendorBookings";
+import AdminBookings from "./pages/admin/AdminBookings";
+import UserProtectedRoute from "./components/UserProtectedRoute";
+import Signup from "./pages/Signup";
 // import AdminVendors from "./pages/admin/Vendors";
 // import AdminServices from "./pages/admin/Services";
 // import AdminCategories from "./pages/admin/Categories";
@@ -53,6 +58,10 @@ function App() {
         <Route
           path="/login"
           element={<Login />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup />}
         />
 
         <Route
@@ -82,17 +91,11 @@ function App() {
             path="bookings"
             element={<MyBookings />}
           />
-          {/* 
-
           <Route
             path="payments"
-            element={<UserPayments />}
+            element={<MyPayments />}
           />
 
-          <Route
-            path="profile"
-            element={<UserProfile />}
-          /> */}
         </Route>
 
         <Route
@@ -117,18 +120,11 @@ function App() {
             path="availability"
             element={<Availability />}
           />
-          {/*
-
-
           <Route
             path="bookings"
             element={<VendorBookings />}
           />
 
-          <Route
-            path="profile"
-            element={<VendorProfile />}
-          /> */}
         </Route>
 
         <Route
@@ -156,6 +152,10 @@ function App() {
             path="/admin/categories"
             element={<Categories />}
           />
+          <Route
+            path="bookings"
+            element={<AdminBookings />}
+          />
           {/*
           <Route
             path="services"
@@ -167,10 +167,7 @@ function App() {
             element={<AdminCategories />}
           />
 
-          <Route
-            path="bookings"
-            element={<AdminBookings />}
-          />
+         
 
           <Route
             path="profile"

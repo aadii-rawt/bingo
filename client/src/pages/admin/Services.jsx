@@ -29,7 +29,7 @@ const Services = () => {
     } catch (error) {
       setError(
         error?.response?.data?.message ||
-          "Unable to load services"
+        "Unable to load services"
       );
     } finally {
       setLoading(false);
@@ -70,7 +70,7 @@ const Services = () => {
       setError("");
 
       await api.patch(
-        `/services/${selectedService._id}/suspend`,
+        `/services/${selectedService._id}`,
         {
           reason: reason.trim(),
         }
@@ -84,13 +84,12 @@ const Services = () => {
     } catch (error) {
       setError(
         error?.response?.data?.message ||
-          "Unable to suspend service"
+        "Unable to suspend service"
       );
     } finally {
       setActionLoading(null);
     }
   };
-
   return (
     <div className="mx-auto max-w-7xl">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Clock3,
   ShieldCheck,
@@ -5,16 +6,48 @@ import {
   XCircle,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
+import api from "../lib/api";
 
 const VendorPending = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const status = location.state?.status;
-  const rejectionReason =
-    location.state?.rejectionReason;
+  const [status, setStatus] = useState(location.state?.status || "PENDING");
+  const [rejectionReason, setRejectionReason] = useState(
+    location.state?.rejectionReason || ""
+  );
 
   const isRejected = status === "REJECTED";
+
+  useEffect(() => {
+    const fetchVendorStatus = async () => {
+      if (location.state?.status !== "REJECTED") return;
+
+      try {
+        const response = await api.get("/vendors/me");
+        const vendor = response?.data?.data || {};
+
+        const latestStatus = vendor?.status;
+        const latestReason = vendor?.rejectionReason;
+
+        if (latestStatus) {
+          setStatus(latestStatus);
+        }
+
+        if (latestReason) {
+          setRejectionReason(latestReason);
+        } else if (location.state?.rejectionReason) {
+          setRejectionReason(location.state.rejectionReason);
+        }
+      } catch (error) {
+        if (location.state?.rejectionReason) {
+          setRejectionReason(location.state.rejectionReason);
+        }
+      }
+    };
+
+    fetchVendorStatus();
+  }, [location.state]);
 
   const handleLogout = () => {
     navigate("/login");
@@ -98,7 +131,7 @@ const VendorPending = () => {
                 </h2>
 
                 <p className="mt-3 text-sm leading-6 text-black dark:text-white">
-                  Thanks for registering as a vendor on Bookly.
+                  Thanks for registering as a vendor.
                   Your account has been created successfully
                   and is currently waiting for approval from our
                   admin team.

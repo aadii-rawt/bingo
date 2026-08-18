@@ -4,12 +4,15 @@ import {
   LogOut,
   UserCircle,
 } from "lucide-react";
+import { useUser } from "../context/userContext";
 
 const Header = ({
-  user,
+ 
   onMenuClick,
   onLogout,
 }) => {
+
+  const {user} = useUser();
   return (
     <header className="flex h-16 items-center justify-between border-b border-gray-100 bg-white px-5 dark:border-[#303030] dark:bg-[#181818]">
       <button

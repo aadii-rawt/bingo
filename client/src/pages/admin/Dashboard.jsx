@@ -1,108 +1,153 @@
-import StatCard from "../../components/StatCard";
+import { useEffect, useState } from "react";
+import {
+  Users,
+  CalendarDays,
+  IndianRupee,
+  CreditCard,
+  Loader2,
+} from "lucide-react";
+
+import api from "../../lib/api";
 
 const Dashboard = () => {
+  const [stats, setStats] = useState({
+    pendingVendors: 0,
+    bookingsToday: 0,
+    revenueCollected: 0,
+    paymentsFailed: 0,
+  });
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const fetchDashboard = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const response = await api.get(
+        "/admin/dashboard"
+      );
+
+      setStats(
+        response?.data?.data || {}
+      );
+    } catch (error) {
+      console.error(error);
+
+      setError(
+        error?.response?.data?.message ||
+          "Unable to load dashboard."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  const cards = [
+    {
+      title: "Pending Vendors",
+      value: stats.pendingVendors,
+      icon: Users,
+      description:
+        "Vendor applications waiting for approval",
+    },
+    {
+      title: "Bookings Today",
+      value: stats.bookingsToday,
+      icon: CalendarDays,
+      description:
+        "Bookings scheduled for today",
+    },
+    {
+      title: "Revenue Collected",
+      value: `₹${Number(
+        stats.revenueCollected || 0
+      ).toLocaleString("en-IN")}`,
+      icon: IndianRupee,
+      description:
+        "Total collected from completed payments",
+    },
+    {
+      title: "Failed Payments",
+      value: stats.paymentsFailed,
+      icon: CreditCard,
+      description:
+        "Payments that failed",
+    },
+  ];
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[300px] items-center justify-center">
+        <Loader2
+          size={26}
+          className="animate-spin text-black dark:text-white"
+        />
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <div className="mb-7">
-        <h1 className="text-2xl font-bold">
+    <div className="mx-auto max-w-7xl">
+      {/* HEADER */}
+
+      <div>
+        <h1 className="text-2xl font-bold text-black dark:text-white">
           Admin Dashboard
         </h1>
 
-        <p className="mt-1 text-sm text-gray-500">
-          Overview of your marketplace.
+        <p className="mt-1 text-sm text-black dark:text-white">
+          Overview of your platform activity.
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard
-          title="Total Vendors"
-          value="48"
-          description="Registered vendors"
-        />
+      {/* ERROR */}
 
-        <StatCard
-          title="Total Services"
-          value="126"
-          description="Services on platform"
-        />
+      {error && (
+        <div className="mt-5 rounded-lg bg-red-100 px-4 py-3 text-sm text-red-700">
+          {error}
+        </div>
+      )}
 
-        <StatCard
-          title="Total Bookings"
-          value="842"
-          description="All bookings"
-        />
+      {/* STATS */}
 
-        <StatCard
-          title="Pending Vendors"
-          value="7"
-          description="Waiting for approval"
-        />
-      </div>
+      <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        {cards.map((card) => {
+          const Icon = card.icon;
 
-      <div className="mt-7 grid gap-5 lg:grid-cols-2">
-        <div className="rounded-xl border border-gray-100 bg-white p-6 dark:border-[#303030] dark:bg-[#181818]">
-          <h2 className="font-semibold">
-            Pending Vendor Approvals
-          </h2>
+          return (
+            <div
+              key={card.title}
+              className="rounded-2xl bg-gray-50 p-5 dark:bg-[#303030]"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white dark:bg-[#181818]">
+                  <Icon
+                    size={20}
+                    className="text-black dark:text-white"
+                  />
+                </div>
+              </div>
 
-          <p className="mt-1 text-sm text-gray-500">
-            Vendors waiting for verification.
-          </p>
-
-          <div className="mt-5 flex items-center justify-between rounded-lg bg-gray-50 p-4 dark:bg-[#303030]">
-            <div>
-              <p className="font-medium">
-                7 vendors
+              <p className="mt-5 text-sm text-black dark:text-white">
+                {card.title}
               </p>
 
-              <p className="text-xs text-gray-500">
-                Need review
+              <h2 className="mt-1 text-2xl font-bold text-black dark:text-white">
+                {card.value}
+              </h2>
+
+              <p className="mt-2 text-xs text-black dark:text-white">
+                {card.description}
               </p>
             </div>
-
-            <button className="rounded-lg bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black">
-              Review
-            </button>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-gray-100 bg-white p-6 dark:border-[#303030] dark:bg-[#181818]">
-          <h2 className="font-semibold">
-            Recent Activity
-          </h2>
-
-          <div className="mt-5 space-y-4">
-            <div className="flex justify-between">
-              <span className="text-sm">
-                New vendor registered
-              </span>
-
-              <span className="text-xs text-gray-500">
-                10 min ago
-              </span>
-            </div>
-
-            <div className="flex justify-between">
-              <span className="text-sm">
-                New service created
-              </span>
-
-              <span className="text-xs text-gray-500">
-                25 min ago
-              </span>
-            </div>
-
-            <div className="flex justify-between">
-              <span className="text-sm">
-                Booking completed
-              </span>
-
-              <span className="text-xs text-gray-500">
-                1 hour ago
-              </span>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -40,11 +40,6 @@ const VendorLayout = () => {
       path: "/vendor/bookings",
       icon: "bookings",
     },
-    {
-      label: "Profile",
-      path: "/vendor/profile",
-      icon: "profile",
-    },
   ];
 
   const handleLogout = () => {

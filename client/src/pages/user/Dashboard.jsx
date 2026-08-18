@@ -435,11 +435,6 @@ const CustomerDashboard = () => {
         setStep("summary");
     };
 
-    /*
-    |--------------------------------------------------------------------------
-    | CREATE BOOKING
-    |--------------------------------------------------------------------------
-    */
 
     const createBooking = async () => {
         if (
@@ -460,12 +455,7 @@ const CustomerDashboard = () => {
 
             setError("");
 
-            /*
-             * DO NOT send customer ID.
-             *
-             * Backend should get customer
-             * from authenticate middleware.
-             */
+  
 
             const bookingPayload = {
                 service:
@@ -659,11 +649,7 @@ const CustomerDashboard = () => {
             }
         );
 
-    /*
-    |--------------------------------------------------------------------------
-    | SUCCESS SCREEN
-    |--------------------------------------------------------------------------
-    */
+
 
     if (bookingSuccess) {
         return (
@@ -963,24 +949,12 @@ const CustomerDashboard = () => {
                                             }
                                             className="overflow-hidden rounded-xl border border-gray-100 bg-white text-left transition hover:border-black dark:border-[#303030] dark:bg-[#181818] dark:hover:border-white"
                                         >
-                                            {service.image ? (
                                                 <img
-                                                    src={
-                                                        service.image
-                                                    }
-                                                    alt={
-                                                        service.title
-                                                    }
+                                                    src="https://images.seeklogo.com/logo-png/45/1/urban-company-logo-png_seeklogo-456054.png"
+                                                   
                                                     className="h-44 w-full object-cover"
                                                 />
-                                            ) : (
-                                                <div className="flex h-44 items-center justify-center bg-gray-50 dark:bg-[#303030]">
-                                                    <CalendarDays
-                                                        size={34}
-                                                        className="text-black dark:text-white"
-                                                    />
-                                                </div>
-                                            )}
+                                            
 
                                             <div className="p-5">
                                                 <h2 className="font-semibold text-black dark:text-white">
@@ -1225,10 +1199,6 @@ const CustomerDashboard = () => {
                     )}
                 </div>
             )}
-
-            {/* ================================================= */}
-            {/* SUMMARY */}
-            {/* ================================================= */}
 
             {step ===
                 "summary" && (

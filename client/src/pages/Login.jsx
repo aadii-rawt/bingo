@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import api from "../lib/api";
+import { useUser } from "../context/userContext";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Login = () => {
         email: "",
         password: "",
     });
+    const {loginUser}= useUser()
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -36,8 +38,8 @@ const Login = () => {
             const user = data?.data?.user;
             const accessToken = data?.data?.accessToken;
             console.log(user);
-            
 
+            loginUser(user)
             localStorage.setItem(
                 "accessToken",
                 accessToken
@@ -49,13 +51,14 @@ const Login = () => {
 
             if (user.role === "VENDOR") {
                 console.log("this is vendor");
-                
+
                 if (
                     user.status === "PENDING" ||
                     user.status === "REJECTED"
                 ) {
                     navigate("/vendor/pending", {
                         state: {
+                            user : user,
                             status: user.status,
                             rejectionReason: user.rejectionReason || "",
                         },

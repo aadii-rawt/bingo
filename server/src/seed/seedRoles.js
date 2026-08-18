@@ -231,15 +231,15 @@ const seed = async () => {
     }
 
     const existingAdmin = await User.findOne({
-        email: "admin@example.com",
+        email: "admin@gmail.com",
     });
 
     if (!existingAdmin) {
-        const password = await hashPassword("Admin@12345");
+        const password = await hashPassword("Admin@123");
 
         await User.create({
             name: "Admin",
-            email: "admin@example.com",
+            email: "admin@gmail.com",
             password,
             role: adminRole._id,
             status: "ACTIVE",

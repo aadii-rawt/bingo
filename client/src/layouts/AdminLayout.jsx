@@ -45,11 +45,6 @@ const AdminLayout = () => {
       path: "/admin/bookings",
       icon: "bookings",
     },
-    {
-      label: "Profile",
-      path: "/admin/profile",
-      icon: "profile",
-    },
   ];
 
   const handleLogout = () => {
