@@ -11,6 +11,7 @@ const availabilityRoutes = require("./routes/availabilityRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const connectDB = require("./config/db");
 
 const app = express();
 
@@ -48,5 +49,7 @@ app.use((req, res) => {
     message: "Route not found",
   });
 });
+
+connectDB()
 
 module.exports = app;
