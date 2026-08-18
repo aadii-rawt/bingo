@@ -1,0 +1,345 @@
+{
+  "info": {
+    "_postman_id": "442da639-71fd-4164-8557-d412c2bdf00c",
+    "name": "Marketplace API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46606828",
+    "_collection_link": "https://go.postman.co/collection/46606828-442da639-71fd-4164-8557-d412c2bdf00c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Customer",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Aaditya\",\r\n  \"email\": \"adi@gmail.com\",\r\n  \"password\": \"Pass@123\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register/customer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register",
+            "customer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Vendor Customer Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"adi@gmail.com\",\r\n  \"password\": \"Pass@123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Vendor Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Vendor User\",\r\n  \"email\": \"vendor@test.com\",\r\n  \"password\": \"Password@123\",\r\n  \"businessName\": \"My Service Business\",\r\n  \"phone\": \"9876543210\",\r\n  \"address\": {\r\n    \"line1\": \"123 Main Road\",\r\n    \"city\": \"Delhi\",\r\n    \"state\": \"Delhi\",\r\n    \"country\": \"India\",\r\n    \"postalCode\": \"110001\"\r\n  },\r\n  \"timezone\": \"Asia/Kolkata\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register/vendor",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register",
+            "vendor"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"Admin@12345\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Vendor Details",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTgzMTE1YzA1ZmRjMTg5MWNkNDMyYWQiLCJpYXQiOjE3ODY5Nzg0OTEsImV4cCI6MTc4Njk3OTM5MX0.fHyc-KlyO7SyMi6hIjRHvEEeewqzAQEbNjigk4331jw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer ",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/vendors/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "vendors",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pending Vendors",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Beare ",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/vendors/pending",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "vendors",
+            "pending"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Vendors",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"APPROVED\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/vendors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "vendors"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Categories",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTgzMTE1YzA1ZmRjMTg5MWNkNDMyYWQiLCJpYXQiOjE3ODY5NzkxODYsImV4cCI6MTc4Njk4MDA4Nn0.bATef_NCA5OUH1wxABmdnyBUvPqbxnzHGdTpQO_bPq8",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Home Services\",\r\n  \"description\": \"Services available for homes\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/categories",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all Categories",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/categories/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "categories",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Services",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"fan Repair\",\r\n  \"description\": \"fan repair and maintenance service\",\r\n  \"category\": \"6a8324a63908c6bef4d0824a\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/services",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "services"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
