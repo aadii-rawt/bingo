@@ -2,22 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const authRoutes = require("./routes/authRoutes");
-const vendorRoutes = require("./routes/vendorRoutes");
-const categoryRoutes = require("./routes/categoryRoutes");
-const serviceRoutes = require("./routes/serviceRoutes");
-const offeringRoutes = require("./routes/offeringRoutes");
-const availabilityRoutes = require("./routes/availabilityRoutes");
-const bookingRoutes = require("./routes/bookingRoutes");
-const paymentRoutes = require("./routes/paymentRoutes");
-const adminRoutes = require("./routes/adminRoutes");
-const connectDB = require("./config/db");
-
 const app = express();
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   })
 );
@@ -26,30 +15,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// routes
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/bookings", require("./routes/bookingRoutes"));
+app.use("/api/payments", require("./routes/paymentRoutes"));
+app.use("/api/services", require("./routes/serviceRoutes"));
+app.use("/api/admin", require("./routes/adminRoutes"));
+app.use("/api/availability", require("./routes/availabilityRoutes"));
+
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
     message: "Server is running",
   });
 });
-
-app.use("/api/auth", authRoutes);
-app.use("/api/vendors", vendorRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/offerings", offeringRoutes);
-app.use("/api/availability", availabilityRoutes);
-app.use("/api/services", serviceRoutes);
-app.use("/api/bookings", bookingRoutes);
-app.use("/api/payments", paymentRoutes);
-app.use("/api/admin", adminRoutes);
-
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Route not found",
-  });
-});
-
-connectDB()
 
 module.exports = app;
