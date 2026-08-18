@@ -1,9 +1,9 @@
 const crypto = require("crypto");
 
-const User = require("../models/User");
-const Role = require("../models/Role");
-const Permission = require("../models/Permission");
-const RefreshToken = require("../models/RefreshToken");
+const User = require("../models/user");
+const Role = require("../models/role");
+const Permission = require("../models/permission");
+const RefreshToken = require("../models/refreshToken");
 const Vendor = require("../models/vendors");
 
 const {

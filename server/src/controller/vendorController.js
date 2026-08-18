@@ -1,5 +1,5 @@
 const Vendor = require("../models/vendors");
-const User = require("../models/User");
+const User = require("../models/user");
 
 const getMyVendor = async (req, res) => {
   try {

@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const connectDB = require("../config/db");
 
 const Role = require("../models/role");
-const Permission = require("../models/Permission");
-const User = require("../models/User");
+const Permission = require("../models/permission");
+const User = require("../models/user");
 
 const {
     hashPassword,

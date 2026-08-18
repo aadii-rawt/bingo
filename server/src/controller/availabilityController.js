@@ -1,6 +1,6 @@
 const AvailabilityRule = require("../models/availabilityRule");
 const AvailabilityException = require("../models/availabilityException");
-const SlotInventory = require("../models/SlotInventory");
+const SlotInventory = require("../models/slotInventory");
 const Service = require("../models/services");
 const Offering = require("../models/offering");
 const Vendor = require("../models/vendors");
