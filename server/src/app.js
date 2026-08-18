@@ -16,6 +16,7 @@ const bookingRoutes = require("./routes/bookingRoutes");
 
 const paymentRoutes = require("./routes/paymentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const connectDB = require("./config/db");
 
 const app = express();
 
@@ -47,7 +48,7 @@ app.use("/api/services", serviceRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);
-
+connectDB()
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({
