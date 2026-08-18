@@ -5,15 +5,10 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoutes");
 const vendorRoutes = require("./routes/vendorRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
-
 const serviceRoutes = require("./routes/serviceRoutes");
-
 const offeringRoutes = require("./routes/offeringRoutes");
-
 const availabilityRoutes = require("./routes/availabilityRoutes");
-
 const bookingRoutes = require("./routes/bookingRoutes");
-
 const paymentRoutes = require("./routes/paymentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 
@@ -43,7 +38,6 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/offerings", offeringRoutes);
 app.use("/api/availability", availabilityRoutes);
 app.use("/api/services", serviceRoutes);
-
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);

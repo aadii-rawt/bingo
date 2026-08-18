@@ -38,7 +38,6 @@ import MyBookings from "./pages/user/MyBookings";
 import MyPayments from "./pages/user/MyPayments";
 import VendorBookings from "./pages/vendor/VendorBookings";
 import AdminBookings from "./pages/admin/AdminBookings";
-import UserProtectedRoute from "./components/UserProtectedRoute";
 import Signup from "./pages/Signup";
 // import AdminVendors from "./pages/admin/Vendors";
 // import AdminServices from "./pages/admin/Services";
