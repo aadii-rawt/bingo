@@ -46,14 +46,14 @@ Role: ADMIN
 ## Vendor
 
 ```text
-Email: demo@example.com
+Email: demo@gmail.com
 Password: Pass@123
 Role: VENDOR
 ```
 ## user
 
 ```text
-Email: user@example.com
+Email: user@gmail.com
 Password: Pass@123
 Role: USER
 
